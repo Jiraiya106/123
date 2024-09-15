@@ -1,0 +1,27 @@
+version: 0.0
+os: linux
+files:
+  - source: ./
+    destination: /home/ec2-user/node
+
+hooks:
+   BeforeInstall:
+    - location: scripts/installapache.sh
+      runas: root
+      timeout: 60
+    - location: scripts/startapache.sh
+      runas: root
+      timeout: 60
+    - location: scripts/installjava8.sh
+      runas: root
+      timeout: 60      
+   AfterInstall:
+    - location: scripts/envscript.sh
+      runas: root
+      timeout: 60
+    - location: scripts/restartapache.sh
+      runas: root
+      timeout: 60
+    - location: scripts/startapp.sh
+      runas: root
+      timeout: 60
